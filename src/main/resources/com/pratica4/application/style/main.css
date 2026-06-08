@@ -1,0 +1,182 @@
+.root {
+    -fx-font-family: 'Poppins';
+    -fx-background-color: #F7F8F9;
+}
+
+.client__container {
+    -fx-background-color: white;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-border-color: #d5d4d9;
+    -fx-border-style: solid;
+
+}
+
+.form__label {
+    -fx-font-size: 13px;
+    -fx-text-fill: #343940;
+    -fx-font-family: 'Poppins SemiBold';
+    -fx-font-weight: 600;
+}
+
+.form__title {
+    -fx-font-size: 18px;
+    -fx-font-family: 'Montserrat SemiBold';
+}
+
+.input {
+    -fx-font-family: 'Poppins';
+    -fx-background-color: white;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-border-color: #d5d4d9;
+    -fx-border-style: solid;
+    -fx-padding: 10px;
+    -fx-prompt-text-fill: #8f8e99;
+    -fx-text-fill: #282b30;
+}
+
+.date-picker > .text-field, .date-picker > .button{
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.date-picker > .arrow-button {
+    -fx-background-color: transparent;
+}
+
+.date-picker > .arrow-button > .arrow {
+    -fx-background-color: #8f8e99;
+}
+
+.input--search {
+    -fx-padding: 10px 10px 10px 33px;
+}
+
+.input:hover {
+    -fx-border-color: #373740;
+}
+
+.input:focused {
+    -fx-border-color: #26262b;
+}
+
+.text-area:focused {
+    -fx-background-color: transparent, transparent, transparent;
+}
+
+.text-area .viewport{
+    -fx-background-color: transparent;
+}
+
+.text-area .content {
+    -fx-background-color: transparent;
+}
+
+.btn {
+    -fx-background-color: #26262b;
+    -fx-text-fill: white;
+    -fx-padding: 10px 20px;
+    -fx-background-radius: 5px;
+    -fx-font-size: 14px;
+    -fx-font-family: 'Poppins Semibold';
+    -fx-cursor: hand;
+}
+
+.btn:hover {
+    -fx-background-color: #373740;
+}
+
+.btn--clear {
+    -fx-font-size: 12px;
+}
+
+.btn--cancel {
+    -fx-background-color: transparent;
+    -fx-border-color: #26262b;
+    -fx-border-radius: 5px;
+    -fx-border-style: solid;
+    -fx-text-fill: #26262b;
+}
+
+.btn--cancel:hover {
+    -fx-background-color: #f0f0f2;
+}
+
+.btn--table {
+    -fx-border-style: solid;
+    -fx-border-color: #26262b;
+    -fx-border-radius: 5px;
+    -fx-cursor: hand;
+}
+
+.btn--table:hover {
+    -fx-translate-y: -1px;
+}
+
+.btn__nav {
+    -fx-font-family: 'Montserrat SemiBold';
+    -fx-text-fill: #B5B4BF;
+    -fx-font-size: 13px;
+    -fx-cursor: hand;
+    -fx-background: transparent;
+}
+
+.btn__nav--active {
+    -fx-text-fill: #26262b;
+    -fx-underline: true;
+}
+
+.table-view {
+    -fx-background-color: transparent;
+    -fx-border-color: #d5d4d9;
+    -fx-border-radius: 8px;
+}
+
+.table-view .table-column {
+    -fx-alignment: CENTER;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #26262b;
+    -fx-background-radius: 8px 8px 0px 0px;
+    -fx-background-insets: 0 0 0 0;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+    -fx-size: 40px;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-family: 'Poppins SemiBold';
+}
+
+.table-view .filler {
+    -fx-background-color: transparent;
+}
+
+.table-view .table-cell {
+    -fx-padding: 5px 0 5px 0;
+}
+
+.status {
+    -fx-padding: 3px 10px;
+    -fx-border-radius: 100px;
+    -fx-background-radius: 100px;
+    -fx-border-style: solid;
+    -fx-border-width: 1;
+}
+
+.status--active {
+    -fx-background-color: #E1B7EE;
+    -fx-text-fill: #B145D3;
+    -fx-border-color: #B145D3;
+}
+
+.status--inactive {
+    -fx-background-color: #E7E0EA;
+    -fx-text-fill: #C1AFC7;
+    -fx-border-color: #C1AFC7;
+}

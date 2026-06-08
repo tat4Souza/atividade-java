@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="651.0" styleClass="client__container" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox alignment="BOTTOM_CENTER" prefHeight="474.0" prefWidth="820.0" spacing="20.0" styleClass="client__form">
+         <children>
+            <Label fx:id="title" styleClass="form__title" text="Cadastrar Cliente" />
+            <VBox alignment="CENTER" maxWidth="-Infinity" prefHeight="354.0" prefWidth="492.0" spacing="15.0">
+               <children>
+                  <HBox minHeight="80.0" prefHeight="80.0" prefWidth="492.0" spacing="10.0">
+                     <children>
+                        <AnchorPane prefHeight="63.0" prefWidth="374.0">
+                           <children>
+                              <Label layoutX="14.0" layoutY="5.0" styleClass="form__label" text="Nome:" AnchorPane.leftAnchor="10.0" />
+                              <TextField fx:id="nameField" layoutX="14.0" layoutY="23.0" promptText="Digite o nome" styleClass="input" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="63.0" prefWidth="374.0">
+                           <children>
+                              <Label layoutX="14.0" layoutY="5.0" styleClass="form__label" text="CPF:" AnchorPane.leftAnchor="10.0" />
+                              <TextField fx:id="cpfField" layoutX="14.0" layoutY="23.0" promptText="Digite o CPF" styleClass="input" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </HBox>
+                  <HBox minHeight="80.0" prefHeight="80.0" prefWidth="451.0" spacing="10.0">
+                     <children>
+                        <AnchorPane prefHeight="63.0" prefWidth="374.0">
+                           <children>
+                              <Label layoutX="14.0" layoutY="5.0" styleClass="form__label" text="Data de Nascimento:" AnchorPane.leftAnchor="10.0" />
+                              <DatePicker fx:id="dateField" layoutX="4.0" layoutY="33.0" promptText="Selecione uma data" styleClass="input" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="63.0" prefWidth="374.0">
+                           <children>
+                              <Label layoutX="14.0" layoutY="5.0" styleClass="form__label" text="Telefone:" AnchorPane.leftAnchor="10.0" />
+                              <TextField fx:id="telephoneField" layoutX="14.0" layoutY="23.0" promptText="Digite o telefone" styleClass="input" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </HBox>
+                  <HBox minHeight="80.0" prefHeight="80.0" prefWidth="451.0" spacing="10.0">
+                     <children>
+                        <AnchorPane prefHeight="63.0" prefWidth="374.0">
+                           <children>
+                              <Label layoutX="14.0" layoutY="5.0" styleClass="form__label" text="Endereço:" AnchorPane.leftAnchor="10.0" />
+                              <TextField fx:id="addressField" layoutX="14.0" layoutY="23.0" promptText="Digite o endereço" styleClass="input" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="63.0" prefWidth="374.0">
+                           <children>
+                              <Label layoutX="14.0" layoutY="5.0" styleClass="form__label" text="Bairro:" AnchorPane.leftAnchor="10.0" />
+                              <TextField fx:id="neightbourhoodField" layoutX="14.0" layoutY="23.0" promptText="Digite o bairro" styleClass="input" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </HBox>
+                  <HBox minHeight="80.0" prefHeight="80.0" prefWidth="451.0" spacing="5.0">
+                     <children>
+                        <AnchorPane prefHeight="63.0" prefWidth="374.0">
+                           <children>
+                              <Label layoutX="14.0" layoutY="5.0" styleClass="form__label" text="Cidade:" AnchorPane.leftAnchor="10.0" />
+                              <TextField fx:id="cityField" layoutX="14.0" layoutY="23.0" promptText="Digite a cidade" styleClass="input" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="63.0" prefWidth="374.0">
+                           <children>
+                              <Label layoutX="14.0" layoutY="5.0" styleClass="form__label" text="Estado:" AnchorPane.leftAnchor="10.0" />
+                              <TextField fx:id="stateField" layoutX="14.0" layoutY="23.0" promptText="Digite o estado" styleClass="input" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="63.0" prefWidth="374.0">
+                           <children>
+                              <Label layoutX="14.0" layoutY="5.0" styleClass="form__label" text="CEP:" AnchorPane.leftAnchor="10.0" />
+                              <TextField fx:id="cepField" layoutX="14.0" layoutY="23.0" promptText="Digite o CEP" styleClass="input" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </HBox>
+                  <Label fx:id="errorLabel" alignment="CENTER" prefHeight="18.0" prefWidth="493.0" />
+               </children>
+            </VBox>
+            <HBox fx:id="buttonsContainer" alignment="CENTER" prefHeight="46.0" prefWidth="820.0" spacing="15.0">
+               <children>
+                  <JFXButton fx:id="btnSubmmit" onAction="#handleSubmmit" styleClass="btn" text="Cadastrar" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</VBox>
