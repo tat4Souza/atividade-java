@@ -5,12 +5,12 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionFactory {
-    private String password = "Tatazzo@2024#";
-    private String database = "cadastro_clientes";
+    private final String password = "Tatazzo@2024#";
+    private final String database = "cadastro_clientes";
 
     public Connection getConnection() {
         try {
-            return DriverManager.getConnection("jdbc:mysql://localhost/" + database, "root", password);
+            return DriverManager.getConnection("jdbc:mysql://localhost:3367/" + database, "usuario", password);
         } catch(SQLException e) {
             throw new RuntimeException(e);
         }
