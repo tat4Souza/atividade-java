@@ -1,11 +1,15 @@
 package com.pratica4.application.dao;
 
-import com.pratica4.application.factory.ConnectionFactory;
-import com.pratica4.application.models.Cliente;
-
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.pratica4.application.factory.ConnectionFactory;
+import com.pratica4.application.models.Cliente;
 
 public class ClienteDAO {
     private Connection conn;
@@ -51,7 +55,7 @@ public class ClienteDAO {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                int id = rs.getInt("id");
+                int id = rs.getInt("id_cliente");
                 String nome = rs.getString("nome");
                 String cpf = rs.getString("cpf");
                 Date data_nasc = rs.getDate("data_nascimento");
@@ -76,7 +80,7 @@ public class ClienteDAO {
     }
 
     public void alterClient(Cliente cliente, Integer id) {
-        String sql = "UPDATE cliente SET nome = ?, cpf = ?, data_nascimento = ?, telefone = ?, endereco = ?, bairro = ?, cidade = ?, estado = ?, cep = ? WHERE id = ?";
+        String sql = "UPDATE cliente SET nome = ?, cpf = ?, data_nascimento = ?, telefone = ?, endereco = ?, bairro = ?, cidade = ?, estado = ?, cep = ? WHERE id_cliente = ?";
 
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -100,7 +104,7 @@ public class ClienteDAO {
     }
 
     public void deleteClient(Integer id) {
-        String sql = "UPDATE cliente SET status = false WHERE id = ?";
+        String sql = "UPDATE cliente SET status = false WHERE id_cliente = ?";
 
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);

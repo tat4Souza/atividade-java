@@ -5,7 +5,7 @@ USE cadastro_clientes;
 DROP TABLE IF EXISTS cliente;
 
 CREATE TABLE cliente (
-  id int NOT NULL AUTO_INCREMENT,
+  id_cliente int NOT NULL AUTO_INCREMENT,
   nome varchar(30) NOT NULL,
   cpf varchar(14) NOT NULL,
   data_nascimento date DEFAULT NULL,
@@ -16,7 +16,7 @@ CREATE TABLE cliente (
   estado varchar(2) DEFAULT NULL,
   cep varchar(10) DEFAULT NULL,
   status BOOLEAN DEFAULT FALSE,
-  PRIMARY KEY (id),
+  PRIMARY KEY (id_cliente),
   UNIQUE KEY cpf (cpf)
 );
 
@@ -42,7 +42,7 @@ CREATE TABLE animal (
   fk_animal_raca INT NOT NULL,
   Status tinyint(1) DEFAULT NULL,
   PRIMARY KEY (id_animal),
-  FOREIGN KEY (fk_id_cliente) REFERENCES cliente (id) ON DELETE CASCADE,
+  FOREIGN KEY (fk_id_cliente) REFERENCES cliente (id_cliente) ON DELETE CASCADE,
   FOREIGN KEY (fk_animal_raca) REFERENCES raca(ID_Raca) ON DELETE CASCADE
 );
 
