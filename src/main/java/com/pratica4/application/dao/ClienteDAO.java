@@ -15,7 +15,7 @@ public class ClienteDAO {
     }
 
     public boolean addClient(Cliente cliente) {
-        String sql = "INSERT INTO cliente(nome, cpf, data_nascimento, telefone, endereco, bairro, cidade, estado, cep) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO cliente(nome, cpf, data_nascimento, telefone, endereco, bairro, cidade, estado, cep, status) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -29,6 +29,7 @@ public class ClienteDAO {
             stmt.setString(7, cliente.getCidade());
             stmt.setString(8, cliente.getEstado());
             stmt.setString(9, cliente.getCep());
+            stmt.setBoolean(10, true);
 
             stmt.execute();
             stmt.close();

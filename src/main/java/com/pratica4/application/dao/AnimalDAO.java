@@ -20,7 +20,7 @@ public class AnimalDAO {
     }
 
     public boolean addAnimal(Animal animal) {
-        String sql = "INSERT INTO animal(nome, data_nascimento, sexo, cor, observacoes, id_cliente, id_raca, status) VALUES(?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO animal(nome, data_nascimento, sexo, cor, observacoes, fk_id_cliente, fk_animal_raca, status) VALUES(?,?,?,?,?,?,?,?)";
 
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -46,7 +46,7 @@ public class AnimalDAO {
     }
 
     public List<Animal> viewAnimals() {
-        String sql = "SELECT a.*, r.nome_raca, r.tipo_animal FROM animal a INNER JOIN raca r ON a.id_raca = r.id_raca";
+        String sql = "SELECT a.*, r.nome_raca, r.tipo_animal FROM animal a INNER JOIN raca r ON a.fk_animal_raca = r.id_raca";
         List<Animal> animals = new ArrayList<>();
 
         try {
@@ -60,10 +60,10 @@ public class AnimalDAO {
                 String sexo = rs.getString("sexo");
                 String cor = rs.getString("cor");
                 String obs = rs.getString("observacoes");
-                int id_cliente = rs.getInt("id_cliente");
+                int id_cliente = rs.getInt("fk_id_cliente");
                 Boolean status = rs.getBoolean("status");
 
-                int id_raca = rs.getInt("id_raca");
+                int id_raca = rs.getInt("fk_animal_raca");
                 String nome_raca = rs.getString("nome_raca");
                 String tipo_raca = rs.getString("tipo_animal");
                 Boolean status_raca = rs.getBoolean("status");
@@ -85,7 +85,7 @@ public class AnimalDAO {
     }
 
     public void alterAnimal(Animal animal, Integer id) {
-        String sql = "UPDATE animal SET nome = ?, data_nascimento = ?, sexo = ?, cor = ?, observacoes = ?, id_cliente = ?, id_raca = ? WHERE id_animal = ?";
+        String sql = "UPDATE animal SET nome = ?, data_nascimento = ?, sexo = ?, cor = ?, observacoes = ?, fk_id_cliente = ?, fk_animal_raca = ? WHERE id_animal = ?";
 
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
