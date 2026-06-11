@@ -1,14 +1,14 @@
 package com.pratica4.application.dao;
 
-import com.pratica4.application.factory.ConnectionFactory;
-import com.pratica4.application.models.Raca;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.pratica4.application.factory.ConnectionFactory;
+import com.pratica4.application.models.Raca;
 
 public class RacaDAO {
     private Connection conn;
@@ -18,7 +18,7 @@ public class RacaDAO {
     }
 
     public boolean addRaca(Raca raca) {
-        String sql = "INSERT INTO raca(Nome_Raca, Tipo_Animal, Status) VALUES(?,?, ?)";
+        String sql = "INSERT INTO raca(nome_raca, tipo_Animal, status) VALUES(?,?, ?)";
 
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -47,10 +47,10 @@ public class RacaDAO {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                int id = rs.getInt("ID_Raca");
-                String nome = rs.getString("Nome_Raca");
-                String tipo = rs.getString("Tipo_Animal");
-                Boolean status = rs.getBoolean("Status");
+                int id = rs.getInt("id_raca");
+                String nome = rs.getString("nome_raca");
+                String tipo = rs.getString("tipo_animal");
+                Boolean status = rs.getBoolean("status");
 
                 Raca race = new Raca( nome, tipo, status);
                 races.add(race);
@@ -65,7 +65,7 @@ public class RacaDAO {
     }
 
     public void alterRaca(Raca raca, Integer id) {
-        String sql = "UPDATE raca SET Nome_Raca = ?, Tipo_Animal = ? WHERE ID_Raca = ?";
+        String sql = "UPDATE raca SET nome_raca = ?, tipo_animal = ? WHERE id_raca = ?";
 
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -82,7 +82,7 @@ public class RacaDAO {
     }
 
     public void deleteRaca(Integer id) {
-        String sql = "UPDATE raca SET status = false WHERE ID_Raca = ?";
+        String sql = "UPDATE raca SET status = false WHERE id_raca = ?";
 
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
