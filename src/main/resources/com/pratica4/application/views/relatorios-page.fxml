@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="tableContainer" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1100.0" spacing="15.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.pratica4.application.gui.RelatoriosController">
+    <children>
+
+        <HBox alignment="CENTER" prefHeight="30.0" prefWidth="1100.0" spacing="10.0">
+            <children>
+                <JFXButton onAction="#handleClientsAnimalsReport" styleClass="btn__subnav" text="Todos os Clientes e seus Animais" />
+                <Label text="|" textFill="#818ea1" />
+                <JFXButton onAction="#handleAnimalsMonthReport" styleClass="btn__subnav" text="Animais aniversariantes por mês" />
+                <Label text="|" textFill="#818ea1" />
+                <JFXButton onAction="#handleClientsMonthReport" styleClass="btn__subnav" text="Clientes aniversariantes por mês" />
+            </children>
+        </HBox>
+      <VBox fx:id="reportsContainer" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" VBox.vgrow="ALWAYS">
+         <children>
+            <HBox fx:id="entriesContainer" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+               <children>
+                  <TextField fx:id="monthField" prefHeight="26.0" prefWidth="54.0" promptText="Mês" style="-fx-padding: 2;" styleClass="input" />
+                  <TextField fx:id="yearField" prefHeight="26.0" prefWidth="54.0" promptText="Ano" style="-fx-padding: 2;" styleClass="input" />
+                  <JFXButton fx:id="btnBirthDayReport" style="-fx-padding: 2 5;" styleClass="btn" text="Gerar" />
+               </children>
+            </HBox>
+            <Label fx:id="messageLabel" alignment="CENTER" prefHeight="18.0" prefWidth="681.0" textFill="#bcbcbc" />
+            <JFXTextArea fx:id="reportsView" maxWidth="600.0" minWidth="600.0" prefHeight="459.0" prefWidth="600.0" />
+            <JFXButton fx:id="btnSaveReport" onAction="#handleSaveReport" styleClass="btn" text="Salvar no Dispositivo" />
+         </children>
+      </VBox>
+    </children>
+</VBox>
