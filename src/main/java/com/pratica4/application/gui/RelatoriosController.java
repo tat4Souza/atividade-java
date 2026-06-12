@@ -1,7 +1,14 @@
 package com.pratica4.application.gui;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
+
+import com.pratica4.application.dao.RelatorioDAO; // Importação do seu DAO
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -11,10 +18,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
-import java.io.File;
-import java.io.PrintWriter;
-import java.io.IOException;
 
 public class RelatoriosController {
     @FXML private JFXTextArea reportsView;
@@ -27,10 +30,12 @@ public class RelatoriosController {
     @FXML private TextField monthField;
     @FXML private TextField yearField;
 
-    String result = "sucesso";
-
+    // Instância do DAO para buscar os dados
+    private RelatorioDAO relatorioDAO;
 
     public void initialize() {
+        relatorioDAO = new RelatorioDAO(); // Inicializa a conexão com o banco
+
         setVisibilityFalse(reportsView);
         setVisibilityFalse(btnSaveReport);
         setVisibilityFalse(entriesContainer);
@@ -39,29 +44,29 @@ public class RelatoriosController {
         reportsView.setEditable(false);
     }
 
-
+    // 7.1 - Todos os clientes e seus animais
     public void handleClientsAnimalsReport() {
         setVisibilityFalse(entriesContainer);
 
-
-        if (result.equalsIgnoreCase("sucesso")) {
+        try {
+            // Busca o texto formatado direto do banco
+            String reportText = relatorioDAO.generateClientsAndAnimalsReport();
+            
+            reportsView.setText(reportText);
             setVisibilityFalse(messageLabel);
-
-            // Colcoar o texto gerado para o relatório aqui
-            reportsView.setText("--- Relatório: Todos os clientes e seus animais ---");
-
             setVisibilityTrue(reportsView);
             setVisibilityTrue(btnSaveReport);
-        } else {
-            messageLabel.setText("Erro ao gerar relatório");
+            
+            System.out.println("Relatório de todos os clientes e animais gerado.");
+        } catch (Exception e) {
+            messageLabel.setText("Erro ao gerar relatório: " + e.getMessage());
             setVisibilityTrue(messageLabel);
             setVisibilityFalse(reportsView);
             setVisibilityFalse(btnSaveReport);
         }
-
-        System.out.println("Todos os clientes e seus animais");
     }
 
+    // 7.2 - Animais aniversariantes
     public void handleAnimalsMonthReport() {
         setVisibilityFalse(reportsView);
         setVisibilityFalse(btnSaveReport);
@@ -69,25 +74,36 @@ public class RelatoriosController {
         setVisibilityTrue(messageLabel);
 
         setVisibilityTrue(entriesContainer);
+        
+        // Define qual ação o botão 'Gerar' vai ter quando essa opção for clicada
         btnBirthDayReport.setOnAction(this::handleAnimalsMonth);
 
         System.out.println("Preparando filtro: Animais aniversariantes por mês");
     }
 
     private void handleAnimalsMonth(ActionEvent actionEvent) {
-        if (result.equalsIgnoreCase("sucesso")) {
+        try {
+            // Valida se o usuário digitou números
+            int month = Integer.parseInt(monthField.getText().trim());
+            int year = Integer.parseInt(yearField.getText().trim());
+
+            String reportText = relatorioDAO.generateAnimalBirthdaysReport(month, year);
+            
+            reportsView.setText(reportText);
             setVisibilityFalse(messageLabel);
-
-            reportsView.setText("--- Relatório: Animais aniversariantes do mês " + monthField.getText() + " ---");
-
             setVisibilityTrue(reportsView);
             setVisibilityTrue(btnSaveReport);
-        } else {
-            messageLabel.setText("Erro ao gerar relatório");
+
+        } catch (NumberFormatException e) {
+            messageLabel.setText("Erro: Mês e Ano devem ser números inteiros.");
+            setVisibilityTrue(messageLabel);
+        } catch (Exception e) {
+            messageLabel.setText("Erro ao gerar relatório: " + e.getMessage());
             setVisibilityTrue(messageLabel);
         }
     }
 
+    // 7.3 - Clientes aniversariantes
     public void handleClientsMonthReport() {
         setVisibilityFalse(reportsView);
         setVisibilityFalse(btnSaveReport);
@@ -95,21 +111,31 @@ public class RelatoriosController {
         setVisibilityTrue(messageLabel);
 
         setVisibilityTrue(entriesContainer);
+        
+        // Define qual ação o botão 'Gerar' vai ter quando essa opção for clicada
         btnBirthDayReport.setOnAction(this::handleClientsMonth);
 
         System.out.println("Preparando filtro: Clientes aniversariantes por mês");
     }
 
     private void handleClientsMonth(ActionEvent actionEvent) {
-        if (result.equalsIgnoreCase("sucesso")) {
+        try {
+            // Valida se o usuário digitou números
+            int month = Integer.parseInt(monthField.getText().trim());
+            int year = Integer.parseInt(yearField.getText().trim());
+
+            String reportText = relatorioDAO.generateClientBirthdaysReport(month, year);
+            
+            reportsView.setText(reportText);
             setVisibilityFalse(messageLabel);
-
-            reportsView.setText("--- Relatório: Clientes aniversariantes do mês " + monthField.getText() + " ---");
-
             setVisibilityTrue(reportsView);
             setVisibilityTrue(btnSaveReport);
-        } else {
-            messageLabel.setText("Erro ao gerar relatório");
+
+        } catch (NumberFormatException e) {
+            messageLabel.setText("Erro: Mês e Ano devem ser números inteiros.");
+            setVisibilityTrue(messageLabel);
+        } catch (Exception e) {
+            messageLabel.setText("Erro ao gerar relatório: " + e.getMessage());
             setVisibilityTrue(messageLabel);
         }
     }
@@ -124,6 +150,7 @@ public class RelatoriosController {
         node.setManaged(true);
     }
 
+    // Ação do Botão "Salvar Relatório" que grava o que está no JFXTextArea para o TXT
     @FXML
     public void handleSaveReport() {
         FileChooser fileChooser = new FileChooser();

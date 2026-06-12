@@ -465,7 +465,17 @@ public class ConsultaController {
             else if (item instanceof Animal animal) {
                 String nomeAnimal = animal.getNome().toLowerCase();
                 String nomeRaca = animal.getRaca() != null ? animal.getRaca().getNome().toLowerCase() : "";
-                if (nomeAnimal.contains(q) || nomeRaca.contains(q)) {
+                
+                String cpfDonoAnimal = "";
+                String nomeDonoAnimal = "";
+                
+                // Validação de segurança para evitar o NullPointerException
+                if (animal.get() != null) {
+                    cpfDonoAnimal = animal.getCliente().getCpf() != null ? animal.getCliente().getCpf().toLowerCase() : "";
+                    nomeDonoAnimal = animal.getCliente().getNome() != null ? animal.getCliente().getNome().toLowerCase() : "";
+                }
+                
+                if (nomeAnimal.contains(q) || nomeRaca.contains(q) || cpfDonoAnimal.contains(q)||nomeDonoAnimal.contains(q)) {
                     filtered.add(animal);
                 }
             }
