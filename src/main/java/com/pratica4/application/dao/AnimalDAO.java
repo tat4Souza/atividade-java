@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.pratica4.application.factory.ConnectionFactory;
 import com.pratica4.application.models.Animal;
+import com.pratica4.application.models.Cliente;
 import com.pratica4.application.models.Raca;
 
 public class AnimalDAO {
@@ -44,9 +45,13 @@ public class AnimalDAO {
         }
 
     }
-
-    public List<Animal> viewAnimals() {
-        String sql = "SELECT a.*, r.nome_raca, r.tipo_animal FROM animal a INNER JOIN raca r ON a.fk_animal_raca = r.id_raca";
+public List<Animal> viewAnimals() {
+        // 1. Query alterada: Adicionado o INNER JOIN com a tabela cliente
+        String sql = "SELECT a.*, r.nome_raca, r.tipo_animal, c.nome AS nome_cliente, c.cpf AS cpf_cliente " +
+                     "FROM animal a " +
+                     "INNER JOIN raca r ON a.fk_animal_raca = r.id_raca " +
+                     "INNER JOIN cliente c ON a.fk_id_cliente = c.id_cliente";
+        
         List<Animal> animals = new ArrayList<>();
 
         try {
@@ -66,15 +71,26 @@ public class AnimalDAO {
                 int id_raca = rs.getInt("fk_animal_raca");
                 String nome_raca = rs.getString("nome_raca");
                 String tipo_raca = rs.getString("tipo_animal");
-                Boolean status_raca = rs.getBoolean("status");
+                // Removida a linha duplicada 'Boolean status_raca = rs.getBoolean("status");' que poderia causar conflitos.
 
                 Raca raca = new Raca(nome_raca, tipo_raca, true);
                 raca.setId(id_raca);
 
-                Animal animal = new Animal( nome, data_nasc, sexo, cor, obs, id_cliente, raca, status);
-                animals.add(animal);
+                Animal animal = new Animal(nome, data_nasc, sexo, cor, obs, id_cliente, raca, status);
                 animal.setId(id);
 
+                // 2. Criação do cliente e injeção no animal
+                // Usando o construtor do Cliente com nulls para os dados desnecessários na pesquisa
+                Cliente cliente = new Cliente(
+                    rs.getString("nome_cliente"), 
+                    rs.getString("cpf_cliente"), 
+                    null, null, null, null, null, null, null, true
+                );
+                cliente.setId(id_cliente);
+                
+                animal.setCliente(cliente); // A MÁGICA ACONTECE AQUI
+
+                animals.add(animal);
             }
 
         } catch(SQLException e) {

@@ -463,19 +463,21 @@ public class ConsultaController {
                 }
             }
             else if (item instanceof Animal animal) {
-                String nomeAnimal = animal.getNome().toLowerCase();
-                String nomeRaca = animal.getRaca() != null ? animal.getRaca().getNome().toLowerCase() : "";
+                String nomeAnimal = animal.getNome() != null ? animal.getNome().toLowerCase() : "";
+                String nomeRaca = animal.getRaca() != null && animal.getRaca().getNome() != null ? animal.getRaca().getNome().toLowerCase() : "";
                 
                 String cpfDonoAnimal = "";
                 String nomeDonoAnimal = "";
                 
-                // Validação de segurança para evitar o NullPointerException
-                if (animal.get() != null) {
-                    cpfDonoAnimal = animal.getCliente().getCpf() != null ? animal.getCliente().getCpf().toLowerCase() : "";
+                // Como agora o DAO faz o setCliente(), isso aqui não será mais nulo
+                if (animal.getCliente() != null) {
+                    // Removemos a máscara do CPF para a pesquisa funcionar com ou sem pontos
+                    cpfDonoAnimal = animal.getCliente().getCpf() != null ? animal.getCliente().getCpf().replaceAll("\\D", "") : "";
                     nomeDonoAnimal = animal.getCliente().getNome() != null ? animal.getCliente().getNome().toLowerCase() : "";
                 }
-                
-                if (nomeAnimal.contains(q) || nomeRaca.contains(q) || cpfDonoAnimal.contains(q)||nomeDonoAnimal.contains(q)) {
+
+                if (nomeAnimal.contains(q) || nomeRaca.contains(q) || nomeDonoAnimal.contains(q) || 
+                   (!queryClean.isEmpty() && cpfDonoAnimal.contains(queryClean))) {
                     filtered.add(animal);
                 }
             }
