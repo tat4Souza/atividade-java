@@ -14,6 +14,7 @@
                <children>
                   <JFXButton fx:id="btnCadastro" onAction="#handleSignPage" styleClass="btn__nav" text="Cadastrar itens" />
                   <JFXButton fx:id="btnConsulta" onAction="#handleConsultPage" styleClass="btn__nav" text="Consultar itens" />
+                  <JFXButton fx:id="btnRelatorios" onAction="#handleRelatoriosPage" styleClass="btn__nav" text="Relatórios" />
                </children>
             </HBox>
          </children>

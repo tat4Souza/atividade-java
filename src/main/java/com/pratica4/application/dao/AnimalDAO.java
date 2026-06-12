@@ -1,12 +1,17 @@
 package com.pratica4.application.dao;
 
-import com.pratica4.application.factory.ConnectionFactory;
-import com.pratica4.application.models.Animal;
-import com.pratica4.application.models.Raca;
-
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.pratica4.application.factory.ConnectionFactory;
+import com.pratica4.application.models.Animal;
+import com.pratica4.application.models.Cliente;
+import com.pratica4.application.models.Raca;
 
 public class AnimalDAO {
     private Connection conn;
@@ -16,7 +21,7 @@ public class AnimalDAO {
     }
 
     public boolean addAnimal(Animal animal) {
-        String sql = "INSERT INTO animal(Nome, Data_Nascimento, Sexo, Cor, Observacoes, ID_Cliente, ID_Raca, Status) VALUES(?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO animal(nome, data_nascimento, sexo, cor, observacoes, fk_id_cliente, fk_animal_raca, status) VALUES(?,?,?,?,?,?,?,?)";
 
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -27,7 +32,7 @@ public class AnimalDAO {
             stmt.setString(4, animal.getCor());
             stmt.setString(5, animal.getObservacoes());
             stmt.setInt(6, animal.getId_cliente());
-            stmt.setInt(7, animal.getId_raca());
+            stmt.setInt(7, animal.getRaca().getId());
             stmt.setBoolean(8, true);
 
             stmt.execute();
@@ -40,9 +45,13 @@ public class AnimalDAO {
         }
 
     }
-
-    public List<Animal> viewAnimals() {
-        String sql = "SELECT a.*, r.Nome_Raca, r.Tipo_Animal FROM animal a INNER JOIN raca r ON a.ID_Raca = r.ID_Raca";
+public List<Animal> viewAnimals() {
+        // 1. Query alterada: Adicionado o INNER JOIN com a tabela cliente
+        String sql = "SELECT a.*, r.nome_raca, r.tipo_animal, c.nome AS nome_cliente, c.cpf AS cpf_cliente " +
+                     "FROM animal a " +
+                     "INNER JOIN raca r ON a.fk_animal_raca = r.id_raca " +
+                     "INNER JOIN cliente c ON a.fk_id_cliente = c.id_cliente";
+        
         List<Animal> animals = new ArrayList<>();
 
         try {
@@ -50,27 +59,38 @@ public class AnimalDAO {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                int id = rs.getInt("ID_Animal");
-                String nome = rs.getString("Nome");
-                Date data_nasc = rs.getDate("Data_Nascimento");
-                String sexo = rs.getString("Sexo");
-                String cor = rs.getString("Cor");
-                String obs = rs.getString("Observacoes");
-                int id_cliente = rs.getInt("ID_Cliente");
-                Boolean status = rs.getBoolean("Status");
+                int id = rs.getInt("id_animal");
+                String nome = rs.getString("nome");
+                Date data_nasc = rs.getDate("data_nascimento");
+                String sexo = rs.getString("sexo");
+                String cor = rs.getString("cor");
+                String obs = rs.getString("observacoes");
+                int id_cliente = rs.getInt("fk_id_cliente");
+                Boolean status = rs.getBoolean("status");
 
-                int id_raca = rs.getInt("ID_Raca");
-                String nome_raca = rs.getString("Nome_Raca");
-                String tipo_raca = rs.getString("Tipo_Animal");
-                Boolean status_raca = rs.getBoolean("Status");
+                int id_raca = rs.getInt("fk_animal_raca");
+                String nome_raca = rs.getString("nome_raca");
+                String tipo_raca = rs.getString("tipo_animal");
+                // Removida a linha duplicada 'Boolean status_raca = rs.getBoolean("status");' que poderia causar conflitos.
 
                 Raca raca = new Raca(nome_raca, tipo_raca, true);
                 raca.setId(id_raca);
 
-                Animal animal = new Animal( nome, data_nasc, sexo, cor, obs, id_cliente, raca, status);
-                animals.add(animal);
+                Animal animal = new Animal(nome, data_nasc, sexo, cor, obs, id_cliente, raca, status);
                 animal.setId(id);
 
+                // 2. Criação do cliente e injeção no animal
+                // Usando o construtor do Cliente com nulls para os dados desnecessários na pesquisa
+                Cliente cliente = new Cliente(
+                    rs.getString("nome_cliente"), 
+                    rs.getString("cpf_cliente"), 
+                    null, null, null, null, null, null, null, true
+                );
+                cliente.setId(id_cliente);
+                
+                animal.setCliente(cliente); // A MÁGICA ACONTECE AQUI
+
+                animals.add(animal);
             }
 
         } catch(SQLException e) {
@@ -81,7 +101,7 @@ public class AnimalDAO {
     }
 
     public void alterAnimal(Animal animal, Integer id) {
-        String sql = "UPDATE animal SET Nome = ?, Data_Nascimento = ?, Sexo = ?, Cor = ?, Observacoes = ?, ID_Cliente = ?, ID_Raca = ? WHERE ID_Animal = ?";
+        String sql = "UPDATE animal SET nome = ?, data_nascimento = ?, sexo = ?, cor = ?, observacoes = ?, fk_id_cliente = ?, fk_animal_raca = ? WHERE id_animal = ?";
 
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -103,7 +123,7 @@ public class AnimalDAO {
     }
 
     public void deleteAnimal(Integer id) {
-        String sql = "UPDATE animal SET status = false WHERE ID_Animal = ?";
+        String sql = "UPDATE animal SET status = false WHERE id_animal = ?";
 
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -115,5 +135,7 @@ public class AnimalDAO {
             throw new RuntimeException("Erro ao desativar animal: " + e.getMessage());
         }
     }
+
+    
 
 }

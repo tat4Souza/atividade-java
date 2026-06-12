@@ -14,6 +14,7 @@ public class Animal implements Identificador {
     private boolean status;
 
     private Raca raca;
+    private Cliente cliente;
 
     public Animal ( String nome, Date data_nascimento, String sexo, String cor, String observacoes, int id_cliente, Raca raca, boolean status) {
         this.id = id;
@@ -25,6 +26,9 @@ public class Animal implements Identificador {
         this.id_cliente = id_cliente;
         this.raca = raca;
         this.status = status;
+        if (raca != null) {
+            this.id_raca = raca.getId();
+        }
     }
 
 
@@ -50,4 +54,8 @@ public class Animal implements Identificador {
     public Raca getRaca() { return raca; }
 
     public void setRaca(Raca raca) { this.raca = raca; }
+
+    public Cliente getCliente() { return cliente; }
+
+    public void setCliente(Cliente cliente) { this.cliente = cliente; }
 }

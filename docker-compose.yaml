@@ -1,0 +1,14 @@
+services:
+  mysql:
+    image: mysql:latest
+    restart: always
+    environment:
+      - MYSQL_DATABASE=cadastro_clientes
+      - MYSQL_USER=usuario
+      - MYSQL_PASSWORD=Tatazzo@2024#
+      - MYSQL_ROOT_PASSWORD=senha_teste_root
+    ports:
+      - 3367:3306
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    

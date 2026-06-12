@@ -91,11 +91,7 @@ public class CadastroAnimalController {
     }
 
     private void createAnimal() {
-        if (nameField.getText().isEmpty() ||
-                colorField.getText().isEmpty() ||
-                dateField.getValue() == null ||
-                sexField.getValue() == null ||
-                clientField.getValue() == null) {
+        if (nameField.getText().isEmpty() || clientField.getValue() == null || raceField.getValue() == null) {
 
             errorLabel.setText("Por favor, preencha todos os campos obrigatórios!");
             return;

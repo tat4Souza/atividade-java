@@ -19,6 +19,7 @@ public class LayoutController {
     @FXML VBox container;
     @FXML JFXButton btnCadastro;
     @FXML JFXButton btnConsulta;
+    @FXML JFXButton btnRelatorios;
     @FXML HBox navContainer;
 
     NavigationManager nm = new NavigationManager();
@@ -38,6 +39,7 @@ public class LayoutController {
         nm.navigateToPage(container, root);
         btnCadastro.getStyleClass().add("btn__nav--active");
         btnConsulta.getStyleClass().remove("btn__nav--active");
+        btnRelatorios.getStyleClass().remove("btn__nav--active");
 
         navContainer.setVisible(true);
         navContainer.setManaged(true);
@@ -100,6 +102,18 @@ public class LayoutController {
         nm.navigateToPage(container, loader.load());
         btnConsulta.getStyleClass().add("btn__nav--active");
         btnCadastro.getStyleClass().remove("btn__nav--active");
+        btnRelatorios.getStyleClass().remove("btn__nav--active");
+        navContainer.setVisible(false);
+        navContainer.setManaged(false);
+    }
+
+    @FXML
+    private void handleRelatoriosPage() throws IOException {
+        FXMLLoader loader =  new FXMLLoader(Objects.requireNonNull(MainApplication.class.getResource("views/relatorios-page.fxml")));
+        nm.navigateToPage(container, loader.load());
+        btnRelatorios.getStyleClass().add("btn__nav--active");
+        btnCadastro.getStyleClass().remove("btn__nav--active");
+        btnConsulta.getStyleClass().remove("btn__nav--active");
         navContainer.setVisible(false);
         navContainer.setManaged(false);
     }
