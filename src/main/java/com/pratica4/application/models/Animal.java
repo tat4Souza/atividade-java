@@ -25,6 +25,9 @@ public class Animal implements Identificador {
         this.id_cliente = id_cliente;
         this.raca = raca;
         this.status = status;
+        if (raca != null) {
+            this.id_raca = raca.getId();
+        }
     }
 
 

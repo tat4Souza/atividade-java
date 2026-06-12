@@ -31,7 +31,7 @@ public class AnimalDAO {
             stmt.setString(4, animal.getCor());
             stmt.setString(5, animal.getObservacoes());
             stmt.setInt(6, animal.getId_cliente());
-            stmt.setInt(7, animal.getId_raca());
+            stmt.setInt(7, animal.getRaca().getId());
             stmt.setBoolean(8, true);
 
             stmt.execute();
