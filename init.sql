@@ -40,7 +40,7 @@ CREATE TABLE animal (
   observacoes varchar(270) DEFAULT NULL,
   fk_id_cliente int NOT NULL,
   fk_animal_raca INT NOT NULL,
-  Status tinyint(1) DEFAULT NULL,
+  status BOOLEAN DEFAULT FALSE,
   PRIMARY KEY (id_animal),
   FOREIGN KEY (fk_id_cliente) REFERENCES cliente (id_cliente) ON DELETE CASCADE,
   FOREIGN KEY (fk_animal_raca) REFERENCES raca(id_Raca) ON DELETE CASCADE
