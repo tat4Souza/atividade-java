@@ -99,7 +99,7 @@ Ao iniciar a aplicação, você será posto de frente com a região de cadastro.
 ## 📄 Geração de Relatórios
 
 1. No menu de navegação principal, selecione a opção **[Relatórios]**.
-2. O sistema realizará as consultas necessárias e gerará um arquivo chamado `relatorio.txt`. 
+2. O sistema realizará as consultas necessárias e gerará um arquivo `.txt` com o nome especificado pelo usuário. 
 3. Os arquivos conterão a especificação do tipo de relatório e as informações resultantes da consulta exbidas de maneira similar a uma tabela.
 
 As possíveis consultas são:
